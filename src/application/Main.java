@@ -31,7 +31,14 @@ public class Main extends Application {
 	public void execute() {
 		ExecutorService executorService = Executors.newFixedThreadPool(4);
 		executorService.submit(FaceDetection::detectFaces);
-		//executorService.submit(FaceDetection::detectFaces);
+		executorService.submit(() -> {
+			try {
+				ScreenShot.screenShotStart();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 		//executorService.submit(FaceDetection::detectFaces);
 		//executorService.submit(FaceDetection::detectFaces);
 		
