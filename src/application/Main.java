@@ -1,5 +1,8 @@
 package application;
 	
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -11,7 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,500,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -23,4 +26,15 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	//Programýn trace start aldýðý durumda baþlatýlacak olan method
+	public void execute() {
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+		executorService.submit(FaceDetection::detectFaces);
+		//executorService.submit(FaceDetection::detectFaces);
+		//executorService.submit(FaceDetection::detectFaces);
+		//executorService.submit(FaceDetection::detectFaces);
+		
+	}
+	
 }
