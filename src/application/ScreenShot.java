@@ -31,7 +31,7 @@ public class ScreenShot extends TimerTask {
 		}
 	}
 
-	public static void screenShotStart() throws Exception {
+	public static void screenShotStart(){
 		Timer timer = new Timer();
 		timer.schedule(new ScreenShot(), 0, 5000);
         String dirname="screenshot";

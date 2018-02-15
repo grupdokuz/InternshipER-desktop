@@ -18,30 +18,23 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			NetworkSniffer.listenNetwork();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
+		execute();
 		launch(args);
 	}
 	
 	//Programýn trace start aldýðý durumda baþlatýlacak olan method
-	public void execute() {
+	public static void execute() {
 		ExecutorService executorService = Executors.newFixedThreadPool(4);
 		executorService.submit(FaceDetection::detectFaces);
-		executorService.submit(() -> {
-			try {
-				ScreenShot.screenShotStart();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-		//executorService.submit(FaceDetection::detectFaces);
-		//executorService.submit(FaceDetection::detectFaces);
+		executorService.submit(ScreenShot::screenShotStart);
+		executorService.submit(CameraSnapshot::takePicture);
+		executorService.submit(NetworkSniffer::listenNetwork);
 		
 	}
 	
