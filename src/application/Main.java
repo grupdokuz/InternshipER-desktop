@@ -30,8 +30,8 @@ public class Main extends Application {
 	
 	//Programýn trace start aldýðý durumda baþlatýlacak olan method
 	public static void execute() {
-		ExecutorService executorService = Executors.newFixedThreadPool(4);
-		executorService.submit(FaceDetection::detectFaces);
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		//executorService.submit(FaceDetection::detectFaces);
 		executorService.submit(ScreenShot::screenShotStart);
 		executorService.submit(CameraSnapshot::takePicture);
 		executorService.submit(NetworkSniffer::listenNetwork);

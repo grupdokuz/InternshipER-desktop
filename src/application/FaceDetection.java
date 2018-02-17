@@ -12,8 +12,8 @@ import org.opencv.objdetect.CascadeClassifier;
 
 
 public  class FaceDetection {
-	static String path = "";
-	static int detectFaces() {
+	public static String path = "";
+	public static int detectFaces() {
 	    System.out.println("\nRunning DetectFaceDemo");
 
 	    // Create a face detector from the cascade file in the resources
