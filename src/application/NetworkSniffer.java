@@ -34,7 +34,7 @@ public class NetworkSniffer {
 			System.out.printf("#%d: %s [%s]\n", i++, device.getName(), description);
                         
                         //executorService.submit(FaceDetection::detectFaces);
-                        executorService.submit(new MyRunnable(device));
+                        executorService.submit(new NetworkSnifferThread(device));
 		}
 	}
 }

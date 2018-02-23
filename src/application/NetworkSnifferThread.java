@@ -19,9 +19,9 @@ import org.jnetpcap.PcapIf;
  *
  * @author User
  */
-public class MyRunnable implements Callable {
+public class NetworkSnifferThread implements Callable {
             PcapIf device;
-           public MyRunnable(PcapIf device) {
+           public NetworkSnifferThread(PcapIf device) {
                this.device=device;
            }
 
