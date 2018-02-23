@@ -91,6 +91,8 @@ public class Main extends javax.swing.JFrame {
         if(obj.checkExamCode(exam_code)){
             ExamPage exm = new ExamPage();
             exm.setVisible(true);
+                   execute();
+            
             dispose();
         }
         else{
@@ -130,7 +132,6 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
-                execute();
             }
         });
     }

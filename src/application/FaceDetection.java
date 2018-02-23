@@ -20,7 +20,7 @@ public  class FaceDetection {
 	    // Create a face detector from the cascade file in the resources
 	    // directory.
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	    CascadeClassifier faceDetector = new CascadeClassifier("c:\\projeler\\lbpcascade_frontalface.xml");
+	    CascadeClassifier faceDetector = new CascadeClassifier("src\\lbpcascade_frontalface.xml");
 	    Mat image = Imgcodecs.imread(path);
 
 	    // Detect faces in the image.
