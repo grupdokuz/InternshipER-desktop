@@ -49,7 +49,8 @@
 <dependency>
     <groupId>jnetpcap</groupId>
     <artifactId>jnetpcap</artifactId>
-    <version>1.4.r1425-1e</version>
+    <version>1.4.r1425-1f</version>
+    <type>jar</type>
 </dependency>
 
    </dependencies>
