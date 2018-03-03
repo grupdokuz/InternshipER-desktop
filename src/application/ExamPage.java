@@ -18,7 +18,10 @@ public class ExamPage extends javax.swing.JFrame {
      */
     public ExamPage() {
         initComponents();
-       
+        VoiceQuestion yeni = new VoiceQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
+        yeni.setVisible(true);
+        yeni.setSize(300,300);
+        this.add(yeni);
     }
   
     /**
@@ -97,7 +100,7 @@ public class ExamPage extends javax.swing.JFrame {
         this.add(yeni);
     }
        else  if(type.equals("voice")){
-        VoiceQuestion yeni = new VoiceQuestion();
+        VoiceQuestion yeni = new VoiceQuestion("n");
         yeni.setVisible(true);
         yeni.setSize(300,300);
         this.add(yeni);
