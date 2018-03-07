@@ -5,19 +5,179 @@
  */
 package application;
 
+import java.awt.Rectangle;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+
+
 /**
  *
  * @author esra
  */
 public class CodeQuestion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CodeQuestion
-     */
-    public CodeQuestion() {
-        initComponents();
+  
+	private JTextArea textArea = new JTextArea();
         
-    }
+        private  JLabel label1=new JLabel();
+
+	
+
+	private LineNumberModelImpl lineNumberModel = new LineNumberModelImpl();
+
+	
+
+	private LineNumberComponent lineNumberComponent = new LineNumberComponent(lineNumberModel);
+
+	
+
+	public CodeQuestion(String question){
+                initComponents();
+                
+                
+		JFrame frame = new JFrame();
+                
+                frame.add(label1) ;
+                 label1.setText(question); 
+
+		JScrollPane scroller = new JScrollPane(textArea);
+
+		scroller.setRowHeaderView(lineNumberComponent);
+
+		frame.getContentPane().add(scroller);
+
+		lineNumberComponent.setAlignment(LineNumberComponent.CENTER_ALIGNMENT);
+
+		frame.pack();
+
+		frame.setSize(400,500);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		textArea.getDocument().addDocumentListener(new DocumentListener(){
+
+
+
+			@Override
+
+			public void changedUpdate(DocumentEvent arg0) {
+
+				
+
+				lineNumberComponent.adjustWidth();
+
+			}
+
+
+
+			@Override
+
+			public void insertUpdate(DocumentEvent arg0) {
+
+				lineNumberComponent.adjustWidth();
+
+			}
+
+
+
+			@Override
+
+			public void removeUpdate(DocumentEvent arg0) {
+
+				lineNumberComponent.adjustWidth();
+
+			}
+
+			
+
+		});
+
+		textArea.setText("Kod yazilabilir...\n...istenilen dilde...\n...");
+
+		frame.setVisible(true);
+                
+               
+
+            try {
+                SwingUtilities.invokeAndWait(new Runnable(){
+                    
+                    
+                    
+                    @Override
+                    
+                    public void run() {
+                        
+                        new CodeQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
+                        
+                    }
+                    
+                    
+                    
+                });
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CodeQuestion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(CodeQuestion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+	
+
+
+	}
+
+
+
+	
+
+	
+
+	private class LineNumberModelImpl implements LineNumberModel{
+
+
+
+		
+                @Override
+		public int getNumberLines() {
+
+			return textArea.getLineCount();
+
+		}
+
+
+
+		
+                @Override
+		public Rectangle getLineRect(int line) {
+
+			try{
+
+				return textArea.modelToView(textArea.getLineStartOffset(line));
+
+			}catch(BadLocationException e){
+
+				e.printStackTrace();
+
+				return new Rectangle();
+
+			}
+
+		}
+
+	}
+
+	
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,19 +188,30 @@ public class CodeQuestion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        label2 = new java.awt.Label();
+
+        label2.setText("label2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(309, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Label label2;
     // End of variables declaration//GEN-END:variables
 }
