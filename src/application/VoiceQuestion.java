@@ -178,19 +178,19 @@ class CaptureThread extends Thread{
     // based on the selected radio button.
     if(aifcBtn.isSelected()){
       fileType = AudioFileFormat.Type.AIFC;
-      audioFile = new File("answer.aifc");
+      audioFile = new File("C://InternshipER//exam//answer.aifc");
     }else if(aiffBtn.isSelected()){
       fileType = AudioFileFormat.Type.AIFF;
-      audioFile = new File("answer.aif");
+      audioFile = new File("C://InternshipER//exam//answer.aif");
     }else if(auBtn.isSelected()){
       fileType = AudioFileFormat.Type.AU;
-      audioFile = new File("answer.au");
+      audioFile = new File("C://InternshipER//exam//answer.au");
     }else if(sndBtn.isSelected()){
       fileType = AudioFileFormat.Type.SND;
-      audioFile = new File("answer.snd");
+      audioFile = new File("C://InternshipER//exam//answer.snd");
     }else if(waveBtn.isSelected()){
       fileType = AudioFileFormat.Type.WAVE;
-      audioFile = new File("answer.wav");
+      audioFile = new File("C://InternshipER//exam//answer.wav");
     }//end if
 
     try{

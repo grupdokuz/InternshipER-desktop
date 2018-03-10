@@ -20,7 +20,7 @@ public class ScreenShot extends TimerTask {
 
 		try {
 
-			captureScreen("ScreenShot" + "_" + i);
+			captureScreen();
 			i++;
 			if (i == 10) {
 				cancel();
@@ -34,22 +34,20 @@ public class ScreenShot extends TimerTask {
 	public static void screenShotStart(){
 		Timer timer = new Timer();
 		timer.schedule(new ScreenShot(), 0, 5000);
-        String dirname="screenshot";
-			File dir = new File(dirname);
-			dir.mkdir();
+        
 	}
 
-	public static void captureScreen(String fileName) throws Exception {
+	public void captureScreen() throws Exception {
 		try {
 			
 			Robot robot = new Robot();
 			String format = "jpg";
-			String file = fileName + "." + format;
+			String file = "C://InternshipER//screenshots//screenshot_"+i + "." + format;
 
 			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 			BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
 			
-			ImageIO.write(screenFullImage, format, new File("screenshot",file));
+			ImageIO.write(screenFullImage, format, new File(file));
 
 			System.out.println("A full screenshot saved!");
 		} catch (AWTException | IOException ex) {

@@ -5,6 +5,9 @@
  */
 package application;
 
+import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JTextField;
 
 /**
@@ -18,15 +21,14 @@ public class ExamPage extends javax.swing.JFrame {
      */
     public ExamPage() {
         initComponents();
+       createFiles();
        /* VoiceQuestion yeni = new VoiceQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
         yeni.setVisible(true);
         yeni.setSize(300,300);
         this.add(yeni);*/
-       CodeQuestion yeni = new CodeQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);
+        execute();
     }
+    
   
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +58,7 @@ public class ExamPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+           
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -88,6 +91,37 @@ public class ExamPage extends javax.swing.JFrame {
        
         });
     }
+    public void createFiles(){
+         String dirname="C:/InternshipER";
+		File dir = new File(dirname);
+		dir.mkdir();
+                
+                dirname="C://InternshipER//screenshots";
+		File dir2 = new File(dirname);
+		dir2.mkdir();
+                
+                dirname="C://InternshipER//network";
+		File dir3 = new File(dirname);
+		dir3.mkdir();
+                
+                dirname="C://InternshipER//exam";
+		File dir4 = new File(dirname);
+		dir4.mkdir();
+                
+                dirname="C://InternshipER//camera";
+		File dir5 = new File(dirname);
+		dir5.mkdir();
+                
+                dirname="C://InternshipER//camera//flagged";
+		File dir6 = new File(dirname);
+		dir6.mkdir();
+                
+                dirname="C://InternshipER//camera//temp";
+		File dir7 = new File(dirname);
+		dir7.mkdir();
+                
+                
+    }
     public void postQuestion(int no, String question, String type){
        
        if(type.equals("multiple")){
@@ -116,6 +150,15 @@ public class ExamPage extends javax.swing.JFrame {
         yeni.setSize(300,300);
         this.add(yeni);
        }
+    }
+    
+     public static void execute() {
+	ExecutorService executorService = Executors.newFixedThreadPool(3);
+	//executorService.submit(FaceDetection::detectFaces);
+	executorService.submit(ScreenShot::screenShotStart);
+	executorService.submit(CameraSnapshot::takePicture);
+	executorService.submit(NetworkSniffer::listenNetwork);
+		
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

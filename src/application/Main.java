@@ -92,7 +92,7 @@ public class Main extends javax.swing.JFrame {
         if(obj.checkExamCode(exam_code)){
             ExamPage exm = new ExamPage();
             exm.setVisible(true);
-                   execute();
+                 //  execute();
             
             dispose();
         }
@@ -136,14 +136,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-        public static void execute() {
-	ExecutorService executorService = Executors.newFixedThreadPool(3);
-	//executorService.submit(FaceDetection::detectFaces);
-	executorService.submit(ScreenShot::screenShotStart);
-	executorService.submit(CameraSnapshot::takePicture);
-	executorService.submit(NetworkSniffer::listenNetwork);
-		
-    }
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

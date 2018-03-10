@@ -54,13 +54,12 @@ public class NetworkSnifferThread implements Callable {
 			return -1;
 		}
 		
-		String dirname="network";
-		File dir = new File(dirname);
-		dir.mkdir();
+		
 		Date now=new Date();
-		String ofile = "network\\"+now.getDate()+now.getHours()+now.getMinutes()+now.getSeconds()+device.getDescription()+".cap";
+		String ofile = "C://InternshipER//network"+now.getDate()+now.getHours()+now.getMinutes()+now.getSeconds()+device.getDescription()+".cap";
 		PcapDumper dumper = pcap.dumpOpen(ofile); // output file
-
+                
+                        
 
 		/***************************************************************************
 		 * Third we create a packet handler which will receive packets from the libpcap

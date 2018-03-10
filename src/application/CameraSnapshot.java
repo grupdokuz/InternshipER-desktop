@@ -18,9 +18,7 @@ public class CameraSnapshot {
 	
 	public static int count=0;
 	public static void takePicture() {
-                String dirname="snapshots";
-		File dir = new File(dirname);
-		dir.mkdir();
+                
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			  @Override
@@ -43,10 +41,10 @@ public class CameraSnapshot {
 		}
 
 		webcam.open();
-		String fileName = "snapshot-"+LocalDateTime.now().toString().replaceAll(":", "-")+".png";
+		String fileName = "C://InternshipER//camera//temp//img.png";
 		try {
 			
-			ImageIO.write(webcam.getImage(), "PNG", new File("snapshots\\"+fileName));
+			ImageIO.write(webcam.getImage(), "PNG", new File(fileName));
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -56,18 +54,8 @@ public class CameraSnapshot {
 			e2.printStackTrace();
 		}
 		
-		FaceDetection.path = "snapshots\\"+fileName;
 		face = FaceDetection.detectFaces();
-		
-		// if there are more than 1 person, flagged		
-		if(face==1) {
-				new File("snapshots\\"+fileName).renameTo(new File("camera\\flagged\\"+count+"-scanned-"+fileName));
-				//ImageIO.write(webcam.getImage(), "PNG", new File("img\\flagged\\"+count+"-scanned-"+fileName));
-		}
-		else {
-				new File("snapshots\\"+fileName).renameTo(new File("camera\\"+count+"-scanned-"+fileName));
-				//ImageIO.write(webcam.getImage(), "PNG", new File("img\\"+count+"-scanned-"+fileName));
-		}				
+								
 		webcam.close();
 		count++;
 	}
