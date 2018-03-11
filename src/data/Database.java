@@ -73,4 +73,42 @@ public class Database {
         }
        
     }
+    public ResultSet examInfos(String exam_code){
+           try{
+            Connection conn = connectToDatabaseOrDie();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+        
+            ps = conn.prepareStatement("SELECT test_no,company_id,test_name,question_number,time FROM test where exam_code=?");         
+            ps.setString(1,exam_code);
+            rs = ps.executeQuery();
+            return rs;
+                    
+            
+        }
+        catch (SQLException se) {
+            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println(se.getMessage());
+            return null;
+        }
+       
+    }
+    public String companyName(String company_id){
+        try{
+            Connection conn = connectToDatabaseOrDie();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+        
+            ps = conn.prepareStatement("SELECT name FROM company_details where user_id=?");         
+            ps.setString(1,company_id);
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getString(1);         
+        }
+        catch (SQLException se) {
+            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println(se.getMessage());
+            return null;
+        }
+    }
 }

@@ -90,7 +90,7 @@ public class Main extends javax.swing.JFrame {
         String exam_code = jTextField1.getText();
         Database obj = new Database();
         if(obj.checkExamCode(exam_code)){
-            ExamPage exm = new ExamPage();
+            ExamPage exm = new ExamPage(exam_code);
             exm.setVisible(true);
                  //  execute();
             

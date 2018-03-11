@@ -17,7 +17,7 @@ public class sendFileToServer {
     public static void sendFile() throws Exception {
         String fileName = null;
    
-        File file = new File("resources.zip");
+        File file = new File("C:/InternshipER/internshiper.zip");
         Socket socket = new Socket("185.106.209.199", 3332);
         ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());

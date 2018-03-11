@@ -5,7 +5,10 @@
  */
 package application;
 
+import data.Database;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.JTextField;
@@ -15,13 +18,22 @@ import javax.swing.JTextField;
  * @author kworkstat2
  */
 public class ExamPage extends javax.swing.JFrame {
-    public static int count=1;
-    public static int total=15;
+    protected static int count=1;
+    protected static int total;
+    protected static String exam_code;
+    protected static String test_name="";
+    protected static String company_name="";
+    protected static int exam_time;
+    protected static int test_no;
+
+    
     /**
      * Creates new form ExamPage
+     * @param exam_code
      */
-    public ExamPage() {
+    public ExamPage(String exam_code) {
         initComponents();
+        ExamPage.exam_code = exam_code;
         
         finish.setVisible(false);
         qnumber.setText(count+" / "+total);
@@ -32,10 +44,7 @@ public class ExamPage extends javax.swing.JFrame {
       
         }  
        createFiles();
-       /* VoiceQuestion yeni = new VoiceQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);*/
+      
         execute();
     }
     
@@ -175,11 +184,7 @@ public class ExamPage extends javax.swing.JFrame {
       
         }
     }//GEN-LAST:event_backActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-           
+     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,7 +212,7 @@ public class ExamPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExamPage().setVisible(true);
+                new ExamPage(exam_code).setVisible(true);
             }
        
         });
@@ -272,7 +277,20 @@ public class ExamPage extends javax.swing.JFrame {
         this.add(yeni);
        }
     }
-    
+    public void testInfo(String exam_code) throws SQLException{
+        Database obj = new Database();
+        ResultSet rs = obj.examInfos(exam_code);
+        while(rs.next()){
+          test_no = rs.getInt(1);
+          test_name = rs.getString(3);
+          total = rs.getInt(4);
+          exam_time = rs.getInt(5);
+          
+          String company_id = rs.getString(2);
+          company_name = obj.companyName(company_id);
+          
+        }
+    }
      public static void execute() {
 	ExecutorService executorService = Executors.newFixedThreadPool(3);
 	//executorService.submit(FaceDetection::detectFaces);
