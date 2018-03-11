@@ -25,7 +25,7 @@ public class Database {
     try
     {
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://185.22.184.240:5432/internshiper";
+      String url = "jdbc:postgresql://185.106.209.199:5432/internshiper";
       conn = DriverManager.getConnection(url,"postgres", "1");
     }
     catch (ClassNotFoundException e)
@@ -104,6 +104,23 @@ public class Database {
             rs = ps.executeQuery();
             rs.next();
             return rs.getString(1);         
+        }
+        catch (SQLException se) {
+            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println(se.getMessage());
+            return null;
+        }
+    }
+    public ResultSet allQuestions(String test_no){
+        try{
+            Connection conn = connectToDatabaseOrDie();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+        
+            ps = conn.prepareStatement("SELECT question,type,choices,no FROM test_questions where test_id=?");         
+            ps.setString(1,test_no);
+            rs = ps.executeQuery();
+            return rs;         
         }
         catch (SQLException se) {
             System.err.println("Threw a SQLException creating the list of blogs.");

@@ -23,7 +23,7 @@ import javax.swing.text.BadLocationException;
  *
  * @author esra
  */
-public class CodeQuestion extends javax.swing.JPanel {
+public class CodeQuestion extends javax.swing.JFrame {
 
   
 	private JTextArea textArea = new JTextArea();
@@ -196,17 +196,11 @@ public class CodeQuestion extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(309, Short.MAX_VALUE))
+            .addGap(0, 558, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+            .addGap(0, 368, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

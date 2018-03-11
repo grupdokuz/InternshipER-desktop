@@ -11,7 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.GroupLayout;
 import javax.swing.JTextField;
+import oracle.jrockit.jfr.JFR;
 
 /**
  *
@@ -25,16 +30,24 @@ public class ExamPage extends javax.swing.JFrame {
     protected static String company_name="";
     protected static int exam_time;
     protected static int test_no;
+    protected static String[] questions;
+    protected static String[] choice;
 
     
     /**
      * Creates new form ExamPage
      * @param exam_code
+     * @param questions
      */
-    public ExamPage(String exam_code) {
+    public ExamPage(String exam_code, String[] questions) {
         initComponents();
         ExamPage.exam_code = exam_code;
-        
+        ExamPage.questions = questions;
+        try {
+            testInfo(exam_code);
+        } catch (SQLException ex) {
+            Logger.getLogger(ExamPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         finish.setVisible(false);
         qnumber.setText(count+" / "+total);
           if(count==1){
@@ -42,10 +55,10 @@ public class ExamPage extends javax.swing.JFrame {
             back.setVisible(false);
             finish.setVisible(false);
       
-        }  
-       createFiles();
-      
-        execute();
+        }
+       parseQuestion(count);
+
+       execute();
     }
     
   
@@ -107,7 +120,7 @@ public class ExamPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(qnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,7 +134,7 @@ public class ExamPage extends javax.swing.JFrame {
                         .addGap(127, 127, 127))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(499, Short.MAX_VALUE)
+                    .addContainerGap(503, Short.MAX_VALUE)
                     .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)))
         );
@@ -134,14 +147,14 @@ public class ExamPage extends javax.swing.JFrame {
                     .addComponent(qnumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(finish)
                     .addComponent(back))
                 .addGap(21, 21, 21))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(441, Short.MAX_VALUE)
+                    .addContainerGap(443, Short.MAX_VALUE)
                     .addComponent(next)
                     .addGap(21, 21, 21)))
         );
@@ -162,7 +175,7 @@ public class ExamPage extends javax.swing.JFrame {
         if(count!=1){
             back.setVisible(true);
         }
-        
+        parseQuestion(count);
     }//GEN-LAST:event_nextActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -183,6 +196,7 @@ public class ExamPage extends javax.swing.JFrame {
             finish.setVisible(false);
       
         }
+        parseQuestion(count);
     }//GEN-LAST:event_backActionPerformed
      
     public static void main(String args[]) {
@@ -212,10 +226,34 @@ public class ExamPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExamPage(exam_code).setVisible(true);
+                new ExamPage(exam_code,questions).setVisible(true);
             }
        
         });
+    }
+    public void parseQuestion(int no){
+        jPanel1.removeAll();
+        jPanel1.revalidate();
+        jPanel1.repaint();
+        System.out.println("*********"+questions[no-1]);
+        String[] question_elements = new String[6];
+                question_elements = questions[no-1].split(Pattern.quote(" $ "));
+        System.out.println("****"+question_elements[1]+"****");
+        if(question_elements[0].equals("Çoktan Seçmeli")){
+            String[] nwchoice = new String[4];
+            nwchoice[0]=question_elements[2];
+            nwchoice[1]=question_elements[3];
+            nwchoice[2]=question_elements[4];
+            nwchoice[3]=question_elements[5];
+            choice = nwchoice;
+           postQuestion(no, question_elements[1], "multiple");
+        }
+        else if(question_elements[1].equals("Kod"))
+            postQuestion(no, question_elements[1], "code");
+        else if(question_elements[1].equals("Ses Kaydý"))
+            postQuestion(no, question_elements[1], "voice");
+        else if(question_elements[1].equals("Açýk Uçlu"))
+            postQuestion(no, question_elements[1], "open");
     }
     public void createFiles(){
          String dirname="C:/InternshipER";
@@ -249,33 +287,36 @@ public class ExamPage extends javax.swing.JFrame {
                 
     }
     public void postQuestion(int no, String question, String type){
-       
-       if(type.equals("multiple")){
-        String[] choice={"A","B","C","D"};
-        MultipleQuestion yeni = new MultipleQuestion("bla bla bla bla?",choice);
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);
-       }
-       else  if(type.equals("code")){
-        CodeQuestion yeni = new CodeQuestion("bla bla bla blblblblblblblblblbllbbllblblbl?");
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);
-    }
-       else  if(type.equals("voice")){
-        VoiceQuestion yeni = new VoiceQuestion("n");
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);
-           
-       }
-       else  if(type.equals("open")){
-        OpenQuestion yeni = new OpenQuestion();
-        yeni.setVisible(true);
-        yeni.setSize(300,300);
-        this.add(yeni);
-       }
+        System.out.println("post girdi....");
+        switch (type) {
+            case "multiple":
+                {
+                    System.out.println("multi girdi...");
+                    MultipleQuestion yeni = new MultipleQuestion("bla bla bla bla?",choice);
+                    jPanel1.add(yeni.getContentPane());
+                    break;
+                }
+            case "code":
+                {
+                    CodeQuestion yeni = new CodeQuestion(question);
+                    jPanel1.add(yeni.getContentPane());
+                    break;
+                }
+            case "voice":
+                {
+                    VoiceQuestion yeni = new VoiceQuestion(question);
+                    jPanel1.add(yeni.getContentPane());
+                    break;
+                }
+            case "open":
+                {
+                    OpenQuestion yeni = new OpenQuestion(question);
+                    jPanel1.add(yeni.getContentPane());
+                    break;
+                }
+            default:
+                break;
+        }
     }
     public void testInfo(String exam_code) throws SQLException{
         Database obj = new Database();
@@ -299,6 +340,7 @@ public class ExamPage extends javax.swing.JFrame {
 	executorService.submit(NetworkSniffer::listenNetwork);
 		
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton finish;

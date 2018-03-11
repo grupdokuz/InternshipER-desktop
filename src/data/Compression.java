@@ -18,8 +18,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class Compression {
 	public static void compressFiles() {		
-		String zipFile = "C:/archive.zip";		
-		String[] srcFiles = { "C:/srcfile1.txt", "C:/srcfile2.txt", "C:/srcfile3.txt"};		
+		String zipFile = "C:/InternshipER/internshiper.zip";		
+		String[] srcFiles = { "C:/InternshipER"};		
 		try {			
 			// create byte buffer
 			byte[] buffer = new byte[1024];

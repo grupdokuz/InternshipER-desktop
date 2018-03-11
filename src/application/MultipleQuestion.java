@@ -1,21 +1,24 @@
-package application;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package application;
 
 /**
  *
- * @author esra
+ * @author MesutKutlu
  */
-public class MultipleQuestion extends javax.swing.JPanel {
+public class MultipleQuestion extends javax.swing.JFrame {
 
     /**
-     * Creates new form MultipleQuestion
+     * Creates new form MultipleQuestion2
      */
+    protected static String question;
+    protected static String[] choices;
     public MultipleQuestion(String question,String choice[]) {
+        MultipleQuestion.question = question;
+        choices = choice;
         initComponents();
         label1.setText(question);
         jButton1.setText(choice[0]);
@@ -33,24 +36,17 @@ public class MultipleQuestion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label4 = new java.awt.Label();
-        label1 = new java.awt.Label();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         label5 = new java.awt.Label();
         label6 = new java.awt.Label();
+        label1 = new java.awt.Label();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-        label4.setText("label3");
-
-        label1.setText("label1");
-
-        jButton1.setLabel("A");
-
-        jButton2.setText("jButton2");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton3.setText("jButton3");
 
@@ -64,8 +60,19 @@ public class MultipleQuestion extends javax.swing.JPanel {
 
         label6.setText("label5");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        label1.setText("label1");
+
+        jButton1.setLabel("A");
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -107,8 +114,49 @@ public class MultipleQuestion extends javax.swing.JPanel {
                     .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MultipleQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MultipleQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MultipleQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MultipleQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MultipleQuestion(question,choices).setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -118,7 +166,6 @@ public class MultipleQuestion extends javax.swing.JPanel {
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
-    private java.awt.Label label4;
     private java.awt.Label label5;
     private java.awt.Label label6;
     // End of variables declaration//GEN-END:variables
