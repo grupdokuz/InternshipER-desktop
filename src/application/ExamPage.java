@@ -6,7 +6,10 @@
 package application;
 
 import data.Database;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
@@ -23,7 +26,7 @@ import oracle.jrockit.jfr.JFR;
  * @author kworkstat2
  */
 public class ExamPage extends javax.swing.JFrame {
-    protected static int count=1;
+    public static int count=1;
     protected static int total;
     protected static String exam_code;
     protected static String test_name="";
@@ -32,7 +35,8 @@ public class ExamPage extends javax.swing.JFrame {
     protected static int test_no;
     protected static String[] questions;
     protected static String[] choice;
-
+    MultipleQuestion yeni;
+    private static final String FILENAME = "C:\\InternshipER\\exam\\multipleAnswers.txt";
     
     /**
      * Creates new form ExamPage
@@ -92,6 +96,11 @@ public class ExamPage extends javax.swing.JFrame {
         );
 
         finish.setText("Testi Bitir");
+        finish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishActionPerformed(evt);
+            }
+        });
 
         back.setText("Geri");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +179,6 @@ public class ExamPage extends javax.swing.JFrame {
         if(count==total){
             next.setVisible(false);
             finish.setVisible(true);
-      
         }
         if(count!=1){
             back.setVisible(true);
@@ -198,6 +206,36 @@ public class ExamPage extends javax.swing.JFrame {
         }
         parseQuestion(count);
     }//GEN-LAST:event_backActionPerformed
+
+    private void finishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishActionPerformed
+  
+        try {
+      
+            FileWriter fileWriter =new FileWriter(FILENAME);
+
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            
+               for(int i=1;i<yeni.answerButton.length;i++){
+                        if(yeni.answerButton[i]==null){
+                         // bufferedWriter.write((i)+" "+" "); 
+                        }
+                        else{
+                        bufferedWriter.write((i)+" "+yeni.answerButton[i]);
+                        bufferedWriter.newLine();
+                       }
+               }
+      
+            bufferedWriter.close();
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error writing to file '"
+                + FILENAME + "'");
+
+        }
+    
+    
+    }//GEN-LAST:event_finishActionPerformed
      
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -292,7 +330,7 @@ public class ExamPage extends javax.swing.JFrame {
             case "multiple":
                 {
                     System.out.println("multi girdi...");
-                    MultipleQuestion yeni = new MultipleQuestion("bla bla bla bla?",choice);
+                    yeni = new MultipleQuestion("bla bla bla bla?",choice);
                     jPanel1.add(yeni.getContentPane());
                     break;
                 }

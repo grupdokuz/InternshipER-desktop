@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author MesutKutlu
  */
 public class ExamDetailsStart extends javax.swing.JFrame {
-    protected static int total;
+    public static int total;
     protected static String exam_code;
     protected static String test_name="";
     protected static String company_name="";
