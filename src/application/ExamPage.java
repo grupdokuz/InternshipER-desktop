@@ -5,7 +5,9 @@
  */
 package application;
 
+import data.Compression;
 import data.Database;
+import data.sendFileToServer;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -226,8 +228,13 @@ public class ExamPage extends javax.swing.JFrame {
                }
       
             bufferedWriter.close();
+            Compression.compressFiles();
+            System.out.println("enes  alamsfp");
+            sendFileToServer.sendFile();
+            System.out.println("asdf  alamsfp");
+            this.dispose();
         }
-        catch(IOException ex) {
+        catch(Exception ex) {
             System.out.println(
                 "Error writing to file '"
                 + FILENAME + "'");

@@ -6,6 +6,7 @@
 package application;
 
 import data.Database;
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
@@ -128,11 +129,36 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
+        
+        createFolser("C://InternshipER");
+        createFolser("C://InternshipER//camera");
+        createFolser("C://InternshipER//camera//flagged");
+        createFolser("C://InternshipER//camera//temp/");
+        createFolser("C://InternshipER//exam");
+        createFolser("C://InternshipER//screenshots");
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
             }
         });
+    }
+    public static void createFolser(String args) {
+        
+    File theDir = new File(args);
+
+// if the directory does not exist, create it
+if (!theDir.exists()) {
+    boolean result = false;
+
+    try{
+        theDir.mkdir();
+        result = true;
+    } 
+    catch(SecurityException se){
+        //handle it
+    }     
+}
     }
        
     // Variables declaration - do not modify//GEN-BEGIN:variables

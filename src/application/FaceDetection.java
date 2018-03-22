@@ -13,10 +13,10 @@ import org.opencv.objdetect.CascadeClassifier;
 
 
 public  class FaceDetection {
+    static int i = 0;
 	public static String path = "C://InternshipER//camera//temp//img.png";
 	public static int detectFaces() {
 	    System.out.println("\nRunning DetectFaceDemo");
-            int i = 0;
 	    // Create a face detector from the cascade file in the resources
 	    // directory.
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -41,6 +41,7 @@ public  class FaceDetection {
             if(faceNumber <= 1){
                  filename = "C://InternshipER//camera//faceDetection_"+i+".png";
                  i++;
+                 return faceDetections.toArray().length;
             }
             
             else {
